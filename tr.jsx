@@ -3,7 +3,9 @@ import Td from './td';
 
 const Tr = () => {
     return(
-        <tr></tr>
+        <tr>
+            <Td></Td>
+        </tr>
     )
 };
 
