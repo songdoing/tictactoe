@@ -1,5 +1,6 @@
-import React, {useReducer, useCallback} from 'react';
+import React, {useEffect, useReducer, useCallback} from 'react';
 import Table from './table';
+//비동기 state로 뭘 하려면 꼭 useEffect를 사용할것
 
 //initial state가 있고, 이벤트에서 state를 바꾸고 싶으면
 //action객체를 dispatch해서 state를 바꾸는데..
@@ -46,6 +47,7 @@ const reducer = (state, action) => {
 
 const TicTacToe = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
+    const { tableData, turn, winner} = state;
     //td컴퍼넌트에서 클릭정보를 올리고올리고 해서 state를 관리하기 힘들어 useReducer를 사용
     // const [winner, setWinner] = useState('');
     // const [turn, setTurn] = useState('o');
@@ -54,11 +56,29 @@ const TicTacToe = () => {
         //dispatch안에 액션객체를 설정, 액션을 dispatch할 때마다 reducer가 실행되어 state set한다
         dispatch({ type : SET_WINNER, winner: 'O'});
     }, []);
+
+    useEffect(() => {
+        //이겼는지 검사
+        let win = false;
+        if (tableData[row][0] === turn && tableData[row][1] === turn && tableData[row][2] === turn) {
+            win = true;
+        }
+        if (tableData[0][cell] === turn && tableData[1][cell] === turn && tableData[2][cell] === turn) {
+            win = true;
+        }
+        if (tableData[0][0] === turn && tableData[1][1] === turn && tableData[2][2] === turn) {
+        win = true;
+        }
+        if (tableData[0][2] === turn && tableData[1][1] === turn && tableData[2][0] === turn) {
+        win = true;
+        }
+        console.log(win, row, cell, tableData, turn);
+    }, [tableData])
     
     return(
         <>
             <Table onClick={onClickTable} tableData = {state.tableData} dispatch={dispatch}/>
-            {state.winner && <div>{state.winner}'s WIN</div>}
+            {winner && <div>{winner}'s WIN</div>}
         </>
     )
 };
