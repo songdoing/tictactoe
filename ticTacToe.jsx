@@ -7,9 +7,16 @@ import Table from './table';
 const initialState = {
     winner : '',
     turn : 'O',
-    tableData : [['','',''], ['','',''],['','','']]
+    tableData : [
+        ['','',''], 
+        ['','',''],
+        ['','','']
+    ]
 };
-const SET_WINNER = 'SET_WINNER'
+//action은 보통 대문자로 하고, 작따 피하려고 변수에 담고, 다른데서 import하도록
+export const SET_WINNER = 'SET_WINNER';
+export const CLICK_CELL = 'CLICK_CELL';
+export const CHANGE_TURN = 'CHANGE_TURN';
 const reducer = (state, action) => {
     switch(action.type) {
         case SET_WINNER :
@@ -18,6 +25,22 @@ const reducer = (state, action) => {
                 ...state, 
                 winner : action.winner,
             };
+        case CLICK_CELL : {
+        //불변성때문에 얕은 복사를 해줘야 하는 데, immer라는 라이브러리로 해결
+            const tableData = [...state.tableData];
+            tableData[action.row] = [...tableData[action.row]];
+            tableData[action.row][action.cell] = state.turn;
+            return {
+                ...state,
+                tableData,
+            };
+        }
+        case CHANGE_TURN : {
+            return {
+                ...state,
+                turn : state.turn === 'O' ? 'X' : 'O',
+            };
+        }
     }
 };
 
@@ -34,7 +57,7 @@ const TicTacToe = () => {
     
     return(
         <>
-            <Table onClick={onClickTable} tableData = {state.tableData} />
+            <Table onClick={onClickTable} tableData = {state.tableData} dispatch={dispatch}/>
             {state.winner && <div>{state.winner}'s WIN</div>}
         </>
     )
