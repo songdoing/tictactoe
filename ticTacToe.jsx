@@ -104,8 +104,9 @@ const TicTacToe = () => {
         if (win) {
             //승리
             dispatch({type : SET_WINNER, winner : turn});
-            dispatch({type : RESET_GAME});
-                    
+            setTimeout(() => {
+                dispatch({type : RESET_GAME});   
+            },2000);                             
         } else {
             //무승부결정, cell이 다 찼는지
             let all =true; //무승부라는 뜻
@@ -118,8 +119,9 @@ const TicTacToe = () => {
             });
             if(all) { //무승부이면 게임 리셋
                 dispatch({type : SET_WINNER, draw : turn});
-                dispatch({type : RESET_GAME});
-                
+                setTimeout(() => {
+                    dispatch({type : RESET_GAME});   
+                },2000); 
             } else {
                 dispatch({ type : CHANGE_TURN});
             }
