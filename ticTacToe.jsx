@@ -7,7 +7,7 @@ import Table from './table';
 //어떻게 바꿀지는 reducer안에 쓴다
 const initialState = {
     winner : '',
-    
+    draw : '',
     turn : 'O',
     tableData : [
         ['','',''], 
@@ -117,7 +117,7 @@ const TicTacToe = () => {
                 });
             });
             if(all) { //무승부이면 게임 리셋
-                dispatch({type : SET_WINNER, winner : null});
+                dispatch({type : SET_WINNER, draw : turn});
                 dispatch({type : RESET_GAME});
                 
             } else {
@@ -130,7 +130,7 @@ const TicTacToe = () => {
         <>
             <Table onClick={onClickTable} tableData = {tableData} dispatch={dispatch}/>
             {winner && <div>{winner}'s WIN</div>}
-            
+            {draw && <div>DRAW! TRY AGAIN.</div>}
         </>
     )
 };
