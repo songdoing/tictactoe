@@ -130,9 +130,10 @@ const TicTacToe = () => {
     
     return(
         <>
+            <h1>TicTacToe Game</h1>
             <Table onClick={onClickTable} tableData = {tableData} dispatch={dispatch}/>
-            {winner && <div>{winner}'s WIN</div>}
-            {draw && <div>DRAW! TRY AGAIN.</div>}
+            {winner && <div class ="result">{winner}'s WIN</div>}
+            {draw && <div class ="result">DRAW! TRY AGAIN.</div>}
         </>
     )
 };
