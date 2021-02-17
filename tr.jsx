@@ -1,4 +1,4 @@
-import React, { useRef, useEffect} from 'react';
+import React, { useRef, useEffect, useMemo} from 'react';
 import Td from './td';
 
 const Tr = ({ rowData, rowIndex, dispatch }) => {
@@ -12,8 +12,10 @@ const Tr = ({ rowData, rowIndex, dispatch }) => {
     return(
         <tr>
             {Array(rowData.length).fill().map((td , i) => (
+                useMemo(
                 <Td key={i} dispatch={dispatch} rowIndex={rowIndex} cellIndex={i} cellData={rowData[i]}>{''}</Td>
-            ))}
+                )
+                ))}
         </tr>
     );
 };
