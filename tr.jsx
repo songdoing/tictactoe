@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useMemo} from 'react';
+import React, { useRef, useEffect, memo} from 'react';
 import Td from './td';
 
-const Tr = ({ rowData, rowIndex, dispatch }) => {
+const Tr = memo(({ rowData, rowIndex, dispatch }) => {
     console.log('tr rendered');
 
     const ref = useRef([]);
@@ -12,12 +12,10 @@ const Tr = ({ rowData, rowIndex, dispatch }) => {
     return(
         <tr>
             {Array(rowData.length).fill().map((td , i) => (
-                useMemo(
                 <Td key={i} dispatch={dispatch} rowIndex={rowIndex} cellIndex={i} cellData={rowData[i]}>{''}</Td>
-                )
-                ))}
+            ))}
         </tr>
     );
-};
+});
 
 export default Tr;

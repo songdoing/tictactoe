@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, memo } from 'react';
 import {CLICK_CELL} from './ticTacToe';
 
-const Td = ({rowIndex, cellIndex, dispatch, cellData }) => {
+const Td = memo(({rowIndex, cellIndex, dispatch, cellData }) => {
     console.log('td rendered');
 
     //뭐때문에 td rendered가 계속 되는 지 알려면, useEffect, useRef를 사용
@@ -27,6 +27,6 @@ const Td = ({rowIndex, cellIndex, dispatch, cellData }) => {
     return(
         <td onClick={onClickTd}>{cellData}</td>
     )
-};
+});
 
 export default Td;
